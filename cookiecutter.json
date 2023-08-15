@@ -1,0 +1,12 @@
+{
+    "directory_name": "gcp_cloud_function_1",
+    "function_name": "function-1",
+    "project": "dmproject-1",
+    "region": "europe-west1",
+    "_copy_without_render": [
+        "source/templates/base.html",
+        "source/templates/index.html",
+        "source/templates/page2.html",
+        "source/templates/page_not_found.html"
+    ]
+}
