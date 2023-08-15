@@ -3,68 +3,48 @@
   <head>
     <title>GCP Hosted Web Site</title>
 
-    <style>
-        /* Body styles */
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f0e5f7; /* Lighter purple background */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            padding: 5px 20px 20px 20px; /* Reduced top padding */
-        }
-        
-        /* Navigation bar styles */
-        .nav-container {
-            border: 2px solid #6a409b; /* Border around the navigation bar */
-        }
-        .nav {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            background-color: #6a409b;
-            overflow: hidden;
-        }
-        .nav li {
-            float: left;
-        }
-        .nav li a {
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-        .nav li a:hover {
-            background-color: #8e61ce;
-        }
-        
-        /* Content styles */
-        .content {
-            background-color: #f2e2f9;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
-            text-align: center;
-        }
-        
-        /* Title styles */
-        h1, h2 {
-            color: #4a2683; /* Darker purple color */
-        }
-    </style>
-</head>
+  <style>
+    body {
+      background-color: #e6e6fa;
+      color: #333333;
+    }
+    h1 {
+      color: #663399;
+      font-weight: bold;
+      text-align: center;
+    }
+    nav {
+      background-color: #663399;
+      color: #ffffff;
+      padding: 10px;
+      text-align: center;
+    }
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+    nav ul li {
+      display: inline;
+      margin-right: 10px;
+    }
+    nav ul li a {
+      color: #ffffff;
+      text-decoration: none;
+    }
+  </style>
+  
+  </head>
   
   <body>
     <h1>GCP Hosted Web Site</h1>
 
-    <nav>
-      <a href="?page=index">Home</a>
-      <a href="?page=2">Page 2</a>
-    </nav>
+  <nav>
+    <ul>
+      <li><a href="?page=index">Home</a></li>
+      <li><a href="?page=2">Page 2</a></li>
+    </ul>
+  </nav>
 
     {% block content%}
     {% endblock%}
