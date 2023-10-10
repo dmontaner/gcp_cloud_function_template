@@ -7,7 +7,7 @@ from flask import render_template
 
 
 @functions_framework.http
-def entry_point_function(request):
+def {{ cookiecutter.entry_point }}(request):
     print('ARGUMENTS', request.args, flush=True)
 
     # PARSE ARGUMENTS

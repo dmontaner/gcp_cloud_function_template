@@ -1,8 +1,11 @@
 {
     "directory_name": "gcp_cloud_function_1",
-    "function_name": "function-1",
+    "function_name": "{{ cookiecutter.directory_name.replace('_', '-') }}",
+    "port": 8080,
     "project": "dmproject-1",
     "region": "europe-west1",
+    "entry_point": "main_http",
+    "source": "src",
     "_copy_without_render": [
         "source/templates/base.html",
         "source/templates/index.html",
