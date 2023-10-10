@@ -17,4 +17,4 @@ gcloud functions deploy {{ cookiecutter.function_name }} \
        --allow-unauthenticated \
        --runtime=python311 \
        --entry-point={{ cookiecutter.entry_point }} \
-       --source={{ cookiecutter.entry_point }}
+       --source={{ cookiecutter.source }}
