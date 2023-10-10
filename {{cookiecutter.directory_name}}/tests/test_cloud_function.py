@@ -5,8 +5,8 @@
 import requests
 
 # GET
-# URL = "https://{{ cookiecutter.region }}-{{ cookiecutter.project }}.cloudfunctions.net/{{ cookiecutter.function_name }}"
-URL = "http://127.0.0.1:{{ cookiecutter.port }}"
+URL = "https://{{ cookiecutter.region }}-{{ cookiecutter.project }}.cloudfunctions.net/{{ cookiecutter.function_name }}"
+# URL = "http://127.0.0.1:{{ cookiecutter.port }}"
 
 # GET
 res = requests.get(URL)

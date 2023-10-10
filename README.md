@@ -1,6 +1,8 @@
 # GCP Cloud Function Template
 
-Simple "multipage" template for quick deployment of GCP Cloud Functions.
+Simple template for quick deployment of GCP Cloud Functions.
+
+(There is a multipage version commented)
 
 ## Usage
 
@@ -15,7 +17,9 @@ Simple "multipage" template for quick deployment of GCP Cloud Functions.
     virtualenv venv
     source venv/bin/activate
     pip install -r src/requirements.txt
-    bash run_local.sh 
+    deactivate
+
+    ./run_local_server.sh
 
 ### Deploy to GCP
 
@@ -26,6 +30,10 @@ so that GCP asks me for all those permits and sets them for the project.
 Then:
 
     bash deploy.sh 
+
+### Test the cloud function
+
+    python tests/test_cloud_function.py
 
 ### Delete function fromGCP
 
