@@ -7,9 +7,9 @@
     "entry_point": "main_http",
     "source": "src",
     "_copy_without_render": [
-        "source/templates/base.html",
-        "source/templates/index.html",
-        "source/templates/page2.html",
-        "source/templates/page_not_found.html"
+        "{{cookiecutter.source}}/templates/base.html",
+        "{{cookiecutter.source}}/templates/index.html",
+        "{{cookiecutter.source}}/templates/page2.html",
+        "{{cookiecutter.source}}/templates/page_not_found.html"
     ]
 }
