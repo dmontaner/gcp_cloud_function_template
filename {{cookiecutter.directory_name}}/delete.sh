@@ -1,7 +1,7 @@
 #!/bin/bash
 # delete.sh
-# 2023-08-14 david@insightcapital.
-# removes gcp cloud function
+# 2023-10-10 david.montaner@gmail.com
+# removes GCP cloud function
 
 gcloud functions delete  {{ cookiecutter.function_name }} \
 --project={{ cookiecutter.project }} \

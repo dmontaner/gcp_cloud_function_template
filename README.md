@@ -12,7 +12,9 @@ Simple "multipage" template for quick deployment of GCP Cloud Functions.
 ### Develop locally
     
     cd gcp_cloud_function_1  # your created folder here
-    pip install -r source/requirements.txt
+    virtualenv venv
+    source venv/bin/activate
+    pip install -r src/requirements.txt
     bash run_local.sh 
 
 ### Deploy to GCP
