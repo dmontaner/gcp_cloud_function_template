@@ -1,5 +1,5 @@
 # main.py
-# 2023-08-14 david.montaner@gmail.com
+# 2023-10-30 david.montaner@gmail.com
 # main entry function
 
 import functions_framework
@@ -18,18 +18,20 @@ def {{ cookiecutter.entry_point }}(request):
     logging.debug(f"request_json: {request_json}")
     logging.debug(f"request_args: {request_args}")
 
-
     # BASE CODE
-
     if request_json and "name" in request_json:
         name = request_json["name"]
     elif request_args and "name" in request_args:
         name = request_args["name"]
     else:
-        name = "World"
+        # name = "World"
+        logging.error(f"Bad Request /// JSON: {request_json} /// ARGS: {request_args}")
+        return "Bad Request: `name` parameter was expected.", 400
 
-    return "Hello {}!".format(name)
+    logging.info('Starting main function')
+    logging.debug(f'name: {name}')
 
+    return f"Hello {name}!"
 
     # # MULTIPAGE CODE
 
