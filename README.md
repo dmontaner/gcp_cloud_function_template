@@ -6,9 +6,11 @@ Simple template for quick deployment of GCP Cloud Functions.
 
 ## Usage
 
-### Create a new function directory from the template
+### Dependencies
 
     pip install cookiecutter
+    
+### Create a new function directory from the template
 
     cookiecutter https://github.com/dmontaner/gcp_cloud_function_template.git
 
