@@ -5,7 +5,7 @@
     "project": "dmproject-1",
     "region": "europe-west1",
     "entry_point": "main_http",
-    "source": "src",
+    "source": "src/",
     "_copy_without_render": [
         "{{cookiecutter.source}}/templates/base.html",
         "{{cookiecutter.source}}/templates/index.html",
