@@ -6,6 +6,7 @@
     "region": "europe-west1",
     "entry_point": "main_http",
     "source": "src/",
+    "allow_unauthenticated": true,
     "_copy_without_render": [
         "{{cookiecutter.source}}/templates/base.html",
         "{{cookiecutter.source}}/templates/index.html",

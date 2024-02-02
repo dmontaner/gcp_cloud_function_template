@@ -27,15 +27,17 @@ locals {
 }
 
 
+provider "google" {
+  project = local.project
+  region  = local.region
+}
+
+
+# SOURCE CODE
 data "archive_file" "tmp_zip" {
   type        = "zip"
   source_dir  = "../${local.source}"
   output_path = local.tmp_zip
-}
-
-provider "google" {
-  project = local.project
-  region  = local.region
 }
 
 resource "google_storage_bucket" "bucket" {
@@ -50,6 +52,8 @@ resource "google_storage_bucket_object" "object" {
   source = data.archive_file.tmp_zip.output_path
 }
 
+
+# CLOUD FUNCTION
 resource "google_cloudfunctions2_function" "function" {
   name        = local.function_name
   location    = local.region
@@ -73,21 +77,62 @@ resource "google_cloudfunctions2_function" "function" {
   }
 }
 
-resource "google_cloudfunctions2_function_iam_member" "cloud_function_invoker" {
-  project        = google_cloudfunctions2_function.function.project
-  location       = google_cloudfunctions2_function.function.location
+
+{%- if cookiecutter.allow_unauthenticated -%}
+# ACCESS FOR ALL
+resource "google_cloudfunctions2_function_iam_member" "cloud_function_invoker_all" {
+  project        = local.project
+  location       = local.region
   cloud_function = google_cloudfunctions2_function.function.name
   role           = "roles/cloudfunctions.invoker"
-  member = "allUsers"
+  member         = "allUsers"
+}
+
+resource "google_cloud_run_service_iam_member" "cloud_run_invoker_all" {
+  project  = local.project
+  location = local.region
+  service  = google_cloudfunctions2_function.function.name
+  role     = "roles/run.invoker"
+  member   = "allUsers"
+}
+
+{%- else -%}
+# RESTRICTED ACCESS
+resource "google_service_account" "service_account" {
+  account_id   = "sa-${local.function_name}"
+  display_name = "sa-${local.function_name}"
+  description  = "Service account to safely run the cloud function ${local.function_name}"
+}
+
+resource "google_service_account_key" "key" {
+  service_account_id = google_service_account.service_account.name
+}
+
+resource "local_file" "service_account_key_json_file" {
+  content  = "${base64decode(google_service_account_key.key.private_key)}"
+  filename = "../tests/sa-${local.function_name}-key.json"
+}
+
+resource "google_cloudfunctions2_function_iam_member" "cloud_function_invoker" {
+  project        = local.project
+  location       = local.region
+  cloud_function = local.function_name
+  role           = "roles/cloudfunctions.invoker"
+  member         = "serviceAccount:${google_service_account.service_account.email}"
 }
 
 resource "google_cloud_run_service_iam_member" "cloud_run_invoker" {
-  project  = google_cloudfunctions2_function.function.project
-  location = google_cloudfunctions2_function.function.location
-  service  = google_cloudfunctions2_function.function.name
+  project  = local.project
+  location = local.region
+  service  = local.function_name
   role     = "roles/run.invoker"
-  member = "allUsers"
+  member   = "serviceAccount:${google_service_account.service_account.email}"
 }
+
+output "service_account_email" {
+  value = google_service_account.service_account.email
+}
+{% endif %}
 
 output "function_uri" { 
   value = google_cloudfunctions2_function.function.service_config[0].uri
