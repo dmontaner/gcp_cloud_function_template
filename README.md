@@ -24,7 +24,7 @@ Simple template for quick deployment of GCP Cloud Functions.
 
     ./run_local_server.sh
 
-### Deploy to GCP
+### Deploy to GCP using gcloud
 
 The project where the function is to be deployed needs to have the right permits.
 Usually I just create a default function within the project web console
@@ -41,3 +41,15 @@ Then:
 ### Delete function fromGCP
 
     bash delete.sh 
+
+
+### Deploy to GCP using Terraform
+
+    cd terraform
+    terraform init
+    terraform plan
+    terraform apply
+
+### Delete function using Terraform
+
+    terraform destroy
