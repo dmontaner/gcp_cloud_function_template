@@ -110,7 +110,7 @@ resource "google_service_account_key" "key" {
 
 resource "local_file" "service_account_key_json_file" {
   content  = "${base64decode(google_service_account_key.key.private_key)}"
-  filename = "../tests/sa-${local.function_name}-key.json"
+  filename = "../tests/service_account_key.json"
 }
 
 resource "google_cloudfunctions2_function_iam_member" "cloud_function_invoker" {
