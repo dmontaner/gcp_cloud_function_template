@@ -10,18 +10,21 @@ URL = "https://{{ cookiecutter.region }}-{{ cookiecutter.project }}.cloudfunctio
 
 # GET
 res = requests.get(URL)
-assert res.ok
-assert res.text == "Hello World!"
+assert not res.ok
+assert res.status_code == 400
+assert res.text == 'Bad Request: `name` parameter was expected.'
 
 res = requests.get(URL + "?name=David")
 assert res.ok
+assert res.status_code == 200
 assert res.text == "Hello David!"
 
 
 # POST
 res = requests.post(URL)
-assert res.ok
-assert res.text == "Hello World!"
+assert not res.ok
+assert res.status_code == 400
+assert res.text == 'Bad Request: `name` parameter was expected.'
 
 res = requests.post(URL, json={"name": "David"})
 assert res.ok
