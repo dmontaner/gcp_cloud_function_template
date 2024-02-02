@@ -77,8 +77,7 @@ resource "google_cloudfunctions2_function" "function" {
   }
 }
 
-
-{%- if cookiecutter.allow_unauthenticated -%}
+{% if cookiecutter.allow_unauthenticated %}
 # ACCESS FOR ALL
 resource "google_cloudfunctions2_function_iam_member" "cloud_function_invoker_all" {
   project        = local.project
@@ -96,7 +95,7 @@ resource "google_cloud_run_service_iam_member" "cloud_run_invoker_all" {
   member   = "allUsers"
 }
 
-{%- else -%}
+{% else %}
 # RESTRICTED ACCESS
 resource "google_service_account" "service_account" {
   account_id   = "sa-${local.function_name}"
@@ -129,10 +128,12 @@ resource "google_cloud_run_service_iam_member" "cloud_run_invoker" {
   member   = "serviceAccount:${google_service_account.service_account.email}"
 }
 
+
 output "service_account_email" {
   value = google_service_account.service_account.email
 }
-{% endif %}
+
+{% endif -%}
 
 output "function_uri" { 
   value = google_cloudfunctions2_function.function.service_config[0].uri

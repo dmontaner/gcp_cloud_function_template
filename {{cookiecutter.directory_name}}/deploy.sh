@@ -22,9 +22,9 @@ gcloud functions deploy {{ cookiecutter.function_name }} \
        --project={{ cookiecutter.project }} \
        --gen2 \
        --trigger-http \
-{%- if cookiecutter.allow_unauthenticated -%}
+       {%- if cookiecutter.allow_unauthenticated %}
        --allow-unauthenticated \
-{% endif %}
+       {%- endif %}
        --runtime=python311 \
        --entry-point={{ cookiecutter.entry_point }} \
        --source={{ cookiecutter.source }}
