@@ -27,18 +27,21 @@ headers = {'Authorization': 'Bearer ' + credentials.token}
 
 # GET
 res = requests.get(URL, headers=headers)
-assert res.ok
-assert res.text == "Hello World!"
+assert not res.ok
+assert res.status_code == 400
+assert res.text == 'Bad Request: `name` parameter was expected.'
 
 res = requests.get(URL + "?name=David", headers=headers)
 assert res.ok
+assert res.status_code == 200
 assert res.text == "Hello David!"
 
 
 # POST
 res = requests.post(URL, headers=headers)
-assert res.ok
-assert res.text == "Hello World!"
+assert not res.ok
+assert res.status_code == 400
+assert res.text == 'Bad Request: `name` parameter was expected.'
 
 res = requests.post(URL, json={"name": "David"}, headers=headers)
 assert res.ok

@@ -85,14 +85,16 @@ resource "google_cloudfunctions2_function_iam_member" "cloud_function_invoker_al
   cloud_function = google_cloudfunctions2_function.function.name
   role           = "roles/cloudfunctions.invoker"
   member         = "allUsers"
+  depends_on     = [google_cloudfunctions2_function.function]
 }
 
 resource "google_cloud_run_service_iam_member" "cloud_run_invoker_all" {
-  project  = local.project
-  location = local.region
-  service  = google_cloudfunctions2_function.function.name
-  role     = "roles/run.invoker"
-  member   = "allUsers"
+  project    = local.project
+  location   = local.region
+  service    = google_cloudfunctions2_function.function.name
+  role       = "roles/run.invoker"
+  member     = "allUsers"
+  depends_on = [google_cloudfunctions2_function.function]
 }
 
 {% else %}
@@ -118,14 +120,16 @@ resource "google_cloudfunctions2_function_iam_member" "cloud_function_invoker" {
   cloud_function = local.function_name
   role           = "roles/cloudfunctions.invoker"
   member         = "serviceAccount:${google_service_account.service_account.email}"
+  depends_on     = [google_cloudfunctions2_function.function]
 }
 
 resource "google_cloud_run_service_iam_member" "cloud_run_invoker" {
-  project  = local.project
-  location = local.region
-  service  = local.function_name
-  role     = "roles/run.invoker"
-  member   = "serviceAccount:${google_service_account.service_account.email}"
+  project    = local.project
+  location   = local.region
+  service    = local.function_name
+  role       = "roles/run.invoker"
+  member     = "serviceAccount:${google_service_account.service_account.email}"
+  depends_on = [google_cloudfunctions2_function.function]
 }
 
 
